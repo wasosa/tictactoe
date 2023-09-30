@@ -13,8 +13,10 @@ function reset()
     gameOver = false;
 
     let board = document.getElementById("board");
-    for (row of board.rows) {
-        for (cell of row.cells) {
+    for (let i = 0; i < board.rows.length; i++) {
+        let row = board.rows[i];
+        for (let j = 0; j < row.cells.length; j++) {
+            cell = row.cells[j]
             cell.onclick = function () {
                 clickCell(this);
             }
@@ -64,10 +66,13 @@ function checkForWinner()
         [ { i: 0, j: 0}, { i: 1, j: 1 }, { i: 2, j: 2 }, ],
         [ { i: 2, j: 0}, { i: 1, j: 1 }, { i: 0, j: 2 }, ],
     ];
-    for (win of WINS) {
+    for (let i = 0; i < WINS.length; i++) {
+        let win = WINS[i];
         result = 1 | 2;
-        for (cell of win) {
-            result = result & board.rows[cell.i].cells[cell.j].player;
+        for (let j = 0; j < WINS[i].length; j++) {
+            let index = win[j];
+            let cell = board.rows[index.i].cells[index.j];
+            result = result & cell.player;
         }
         if (result == 1 || result == 2) {
             return result;
